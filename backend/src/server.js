@@ -4,6 +4,7 @@ import cors from 'cors'
 import path from "path"
 import notesRoutes from './routes/notesRoutes.js'
 import { connectDB } from './config/db.js';
+import userRouter from './routes/userRoutes.js';
 
 const app = express();
 
@@ -19,7 +20,8 @@ const __dirname = path.resolve();
         origin:"http://localhost:5173"
     }))
 //}
-app.use("/api/notes", notesRoutes)
+app.use("/api/notes", notesRoutes);
+app.use("/api/user", userRouter);
 
 if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
@@ -34,3 +36,5 @@ connectDB().then(() => {
         console.log("server started at port: " + PORT)
     })
 })
+
+//youtube video tutorial: https://www.youtube.com/watch?v=F9gB5b4jgOI&t=12719s
